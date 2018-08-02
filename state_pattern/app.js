@@ -1,0 +1,81 @@
+const PageState = function () {
+    let currentState = new homeState(this);
+
+    this.init = function () {
+        this.change(new homeState);
+    }
+    this.change = function (state) {
+        currentState = state;
+    }
+};
+
+// Home State
+const homeState = function (page) {
+    document.querySelector('#heading').textContent = null;
+    document.querySelector('#content').innerHTML = `
+  <div class="jumbotron">
+  <h1 class="display-4">Hello, world!</h1>
+  <p class="lead">Это простой пример блока с компонентом в стиле jumbotron для привлечения дополнительного внимания к содержанию или информации.</p>
+  <hr class="my-4">
+  <p>Использются служебные классы для типографики и расстояния содержимого в контейнере большего размера.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p>
+</div>
+ `;
+};
+
+// About State
+const aboutState = function (page) {
+    document.querySelector('#heading').textContent = 'About Us';
+    document.querySelector('#content').innerHTML = `
+   <p>This is about page</p>
+ `;
+}
+
+// Contact State
+const contactState = function (page) {
+    document.querySelector('#heading').textContent = 'Contact Us';
+    document.querySelector('#content').innerHTML = `
+   <form>
+    <div class="form-group">
+     <label>Name</label>
+     <input type="text" class="form-control">
+    </div>
+    <div class="form-group">
+     <label>Email address</label>
+     <input type="email" class="form-control">
+    </div>
+    <button class="submit" class="btn btn-primary">Submit</button>
+   </form>
+`;
+};
+
+// Instantiate pageState
+const page = new PageState();
+
+// Init the first state
+page.init();
+
+// UI Vars
+const home = document.getElementById('home'),
+    about = document.getElementById('about'),
+    contact = document.getElementById('contact');
+
+// Home
+home.addEventListener('click', (e) => {
+    e.preventDefault();
+    page.change(new homeState);
+});
+
+// About
+about.addEventListener('click', (e) => {
+    e.preventDefault();
+    page.change(new aboutState);
+});
+
+// Home
+contact.addEventListener('click', (e) => {
+    e.preventDefault();
+    page.change(new contactState);
+})
